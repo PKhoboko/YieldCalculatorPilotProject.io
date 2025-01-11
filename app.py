@@ -40,8 +40,11 @@ def dashboard():
 
     # Retrieve data from Supabase Table
     data = supabase.table("kukuukk").select("*").execute().data
+    auth_response = supabase.auth.sign_in_with_password({'email': email, 'password': password})
+    if auth_response:
+	    session['user'] = email
     
-    if request.method == 'POST':
+    if request.method == 'POST' and auth_response:
         # Add record
         new_data = {
 		"Crop": request.form['Crop'],
