@@ -8,7 +8,6 @@ from supabase import create_client
 
 
 app = Flask(__name__)
-app.secret_key = 'fgrtedsa'
 
 # User Authentication Route
 @app.route('/login', methods=['GET', 'POST'])
