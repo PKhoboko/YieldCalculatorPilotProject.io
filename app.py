@@ -18,7 +18,7 @@ def login():
         
         # Supabase Auth
        
-        else:
+     else:
             flash("Invalid credentials", "danger")
     
     return render_template('login.html')
