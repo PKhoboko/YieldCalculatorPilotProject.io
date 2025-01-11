@@ -10,18 +10,6 @@ from supabase import create_client
 app = Flask(__name__)
 
 # User Authentication Route
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        
-        # Supabase Auth
-       
-     else:
-            flash("Invalid credentials", "danger")
-    
-    return render_template('login.html')
 
 @app.route('/logout')
 def logout():
@@ -37,11 +25,8 @@ def dashboard():
 
     # Retrieve data from Supabase Table
     data = supabase.table("kukuukk").select("*").execute().data
-    auth_response = supabase.auth.sign_in_with_password({'email': email, 'password': password})
-    if auth_response:
-	    session['user'] = email
     
-    if request.method == 'POST' and auth_response:
+    if request.method == 'POST':
         # Add record
         new_data = {
 		"Crop": request.form['Crop'],
