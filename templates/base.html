@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Data App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Field Data Management</h1>
+        <nav>
+            <a href="{{ url_for('submit') }}">Submit Data</a> |
+            <a href="{{ url_for('data') }}">View Data</a>
+        </nav>
+    </header>
+    <main>
+       
+                <ul>
+               
+                    <li class="{{ category }}">{{ message }}</li>
+               
+                </ul>
+           
+        
+    </main>
+</body>
+</html>

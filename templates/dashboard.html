@@ -1,0 +1,38 @@
+<h2>Dashboard</h2>
+<form method="post">
+    <label>Point no:</label><input type="text" name="Point no">
+    <label>Nu Name:</label><input type="text" name="Nu Name">
+    <label>I/D:</label><input type="text" name="I/D">
+    <label>Crop:</label><input type="text" name="Crop">
+    <label>Province:</label><input type="text" name="Province">
+    <label>Lat(-):</label><input type="text" name="Lat(-)">
+    <label>Long (+):</label><input type="text" name="Long (  )">
+    <label>Cultivar:</label><input type="text" name="Cultivar">
+    <label>Planting date:</label><input type="text" name="Planting date">
+    <label>Tillers:</label><input type="text" name="Tillers">
+    <label>Plants / 10m:</label><input type="text" name="Plants / 10m">
+    <label>Row width:</label><input type="text" name="Row width">
+    <label>Moist %:</label><input type="text" name="Moist %">
+    <label>Grain mass:</label><input type="text" name="Grain mass">
+    <label>Ears:</label><input type="text" name="Ears">
+    <button type="submit">Add Data</button>
+</form>
+
+<tbody>
+    {% if data %}
+    {% for row in data %}
+    <tr>
+        <td>{{ row['Point no'] }}</td>
+        <td>{{ row['Crop'] }}</td>
+
+        <td>
+            <a href="{{ url_for('delete', record_id=row.id) }}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+        <td colspan="4">No data available</td>
+    </tr>
+    {% endif %}
+</tbody>
