@@ -17,10 +17,7 @@ def login():
         password = request.form['password']
         
         # Supabase Auth
-        auth_response = supabase.auth.sign_in_with_password({'email': email, 'password': password})
-        if auth_response:
-            session['user'] = email
-            return redirect(url_for('dashboard'))
+       
         else:
             flash("Invalid credentials", "danger")
     
