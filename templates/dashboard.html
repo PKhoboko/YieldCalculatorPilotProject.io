@@ -74,7 +74,20 @@
     {% for row in data %}
     <tr>
         <td>{{ row['Point no'] }}</td>
+        <td>{{ row['Nu Name'] }}</td>
+         <td>{{ row['I/D'] }}</td>
         <td>{{ row['Crop'] }}</td>
+         <td>{{ row['Province'] }}</td>
+        <td>{{ row['Lat(-)'] }}</td>
+        <td>{{ row['Long (  )'] }}</td>
+         <td>{{ row['Cultiva'] }}</td>
+        <td>{{ row['Planting date'] }}</td>
+         <td>{{ row['Tillers'] }}</td>
+        <td>{{ row['Plants / 10m'] }}</td>
+         <td>{{ row['Row width'] }}</td>
+        <td>{{ row['Moist %'] }}</td>
+         <td>{{ row['Grain mass'] }}</td>
+        <td>{{ row['Ears'] }}</td>
 
         <td>
             <a href="{{ url_for('delete', record_id=row.id) }}">Delete</a>
