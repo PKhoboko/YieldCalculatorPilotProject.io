@@ -50,7 +50,7 @@ def dashboard():
 	}
         
         supabase.table("kukuukk").insert(new_data).execute()
-	data = supabase.table("kukuukk").select("*").execute().data
+        data = supabase.table("kukuukk").select("*").execute().data
         
         return render_template('dashboard.html',data=data)
     
