@@ -50,8 +50,9 @@ def dashboard():
 	}
         
         supabase.table("kukuukk").insert(new_data).execute()
-        flash("Data added!", "success")
-        return data
+	data = supabase.table("kukuukk").select("*").execute().data
+        
+        return render_template('dashboard.html',data=data)
     
     return render_template('dashboard.html',data=data)
 
