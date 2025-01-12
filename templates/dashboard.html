@@ -1,3 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture Data Entry</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+        }
+        .container {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
 <h2>Dashboard</h2>
 <form method="post">
     <label>Point no:</label><input type="text" name="Point no">
@@ -18,8 +48,29 @@
     <button type="submit">Add Data</button>
 </form>
 
-<tbody>
-    {% if data %}
+<h2>Data Table</h2>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Point no</th>
+                <th>Nu Name</th>
+                <th>I/D</th>
+                <th>Crop</th>
+                <th>Province</th>
+                <th>Lat(-)</th>
+                <th>Long (  )</th>
+                <th>Cultiva</th>
+                <th>Planting date</th>
+                <th>Tillers</th>
+                <th>Plants / 10m</th>
+                <th>Row width</th>
+                <th>Moist %</th>
+                <th>Grain mass</th>
+                <th>Ears</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if data %}
     {% for row in data %}
     <tr>
         <td>{{ row['Point no'] }}</td>
@@ -35,4 +86,8 @@
         <td colspan="4">No data available</td>
     </tr>
     {% endif %}
-</tbody>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
