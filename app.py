@@ -9,6 +9,10 @@ from supabase import create_client
 
 app = Flask(__name__)
 
+# Replace with your Supabase credentials
+SUPABASE_URL = "https://your-supabase-url.supabase.co"
+SUPABASE_KEY = "your-supabase-service-role-key"
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 # User Authentication Route
 
 @app.route('/logout')
