@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from supabase_config import supabase
-from supabase import create_client
+from supabase import create_client, Client
 
 
 
