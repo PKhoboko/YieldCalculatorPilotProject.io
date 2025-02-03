@@ -51,11 +51,21 @@ def dashboard():
         
         supabase.table("kukuukk").insert(new_data).execute()
         data = supabase.table("kukuukk").select("*").execute().data
-        for i in data:
-            data["yield"] = jsonify((i['Ears']*(i['Grain mass']*((100-i['Moist %'])/(100-12.5)/i['Row width'])))*0.95)
+        total_rows = len(data)  # Get total number of rows
+        three_percent_rows = int(total_rows * 0.03)  # Calculate 3% of the rows
+
+        # Take the first 3% of the data
+        subset_data = data[:three_percent_rows]
+        for i in subset_data:
+            subset_data["yield"] = jsonify((i['Ears']*(i['Grain mass']*((100-i['Moist %'])/(100-12.5)/i['Row width'])))*0.95)
        
         
-        return render_template('dashboard.html',data=data)
+        return render_template('dashboard.html',data=subset_data)
+    total_rows = len(data)  # Get total number of rows
+    three_percent_rows = int(total_rows * 0.03)  # Calculate 3% of the rows
+
+        # Take the first 3% of the data
+    subset_data = data[:three_percent_rows]
     for i in data:
             data["yeild"] = jsonify((i['Ears']*(i['Grain mass']*((100-i['Moist %'])/(100-12.5)/i['Row width'])))*0.95)
             
