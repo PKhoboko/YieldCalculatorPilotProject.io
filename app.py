@@ -59,9 +59,9 @@ def dashboard():
         for i in subset_data:
             if isinstance(i['Ears'], (int, float)) and isinstance(i['Grain mass'], (int, float)) \
                and isinstance(i['Moist %'], (int, float)) and isinstance(i['Row width'], (int, float)):
-              data["yeild"] = jsonify((i['Ears']*(i['Grain mass']*((100-i['Moist %'])/(100-12.5)/i['Row width'])))*0.95)
+              i["yeild"] = jsonify((i['Ears']*(i['Grain mass']*((100-i['Moist %'])/(100-12.5)/i['Row width'])))*0.95)
             else:
-               data["yeild"] = 0
+               i["yeild"] = 0
        
         
         return render_template('dashboard.html',data=subset_data)
@@ -73,9 +73,9 @@ def dashboard():
     for i in data:
         if isinstance(i['Ears'], (int, float)) and isinstance(i['Grain mass'], (int, float)) \
         and isinstance(i['Moist %'], (int, float)) and isinstance(i['Row width'], (int, float)):
-            data["yeild"] = jsonify((i['Ears']*(i['Grain mass']*((100-i['Moist %'])/(100-12.5)/i['Row width'])))*0.95)
+            i["yeild"] = jsonify((i['Ears']*(i['Grain mass']*((100-i['Moist %'])/(100-12.5)/i['Row width'])))*0.95)
         else:
-            data["yeild"] = 0
+            i["yeild"] = 0
             
     return render_template('dashboard.html',data=data)
 
