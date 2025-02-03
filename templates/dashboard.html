@@ -3,104 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agriculture Data Entry</title>
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        /* Custom styles */
+        .container {
+            max-width: 500px; /* Limits form width on larger screens */
         }
-        table, th, td {
-            border: 1px solid black;
+        table {
+            font-size: 14px; /* Adjusts table font size for readability */
         }
         th, td {
-            padding: 8px;
             text-align: center;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 5px;
-        }
-        .container {
-            margin: 20px;
         }
     </style>
 </head>
-<body>
-<div class="container">
-<h2>Dashboard</h2>
-<form method="post">
-    <label>Point no:</label><input type="text" name="Point no">
-    <label>Nu Name:</label><input type="text" name="Nu Name">
-    <label>I/D:</label><input type="text" name="I/D">
-    <label>Crop:</label><input type="text" name="Crop">
-    <label>Province:</label><input type="text" name="Province">
-    <label>Lat(-):</label><input type="text" name="Lat(-)">
-    <label>Long (+):</label><input type="text" name="Long (  )">
-    <label>Cultivar:</label><input type="text" name="Cultivar">
-    <label>Planting date:</label><input type="text" name="Planting date">
-    <label>Tillers:</label><input type="text" name="Tillers">
-    <label>Plants / 10m:</label><input type="text" name="Plants / 10m">
-    <label>Row width:</label><input type="text" name="Row width">
-    <label>Moist %:</label><input type="text" name="Moist %">
-    <label>Grain mass:</label><input type="text" name="Grain mass">
-    <label>Ears:</label><input type="text" name="Ears">
-    <button type="submit">Add Data</button>
-</form>
+<body class="bg-light">
 
-<h2>Data Table</h2>
-    <table id="dataTable">
-        <thead>
-            <tr>
-                <th>Point no</th>
-                <th>Nu Name</th>
-                <th>I/D</th>
-                <th>Crop</th>
-                <th>Province</th>
-                <th>Lat(-)</th>
-                <th>Long (  )</th>
-                <th>Cultiva</th>
-                <th>Planting date</th>
-                <th>Tillers</th>
-                <th>Plants / 10m</th>
-                <th>Row width</th>
-                <th>Moist %</th>
-                <th>Grain mass</th>
-                <th>Ears</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if data %}
-    {% for row in data %}
-    <tr>
-        <td>{{ row['Point no'] }}</td>
-        <td>{{ row['Nu Name'] }}</td>
-         <td>{{ row['I/D'] }}</td>
-        <td>{{ row['Crop'] }}</td>
-         <td>{{ row['Province'] }}</td>
-        <td>{{ row['Lat(-)'] }}</td>
-        <td>{{ row['Long (  )'] }}</td>
-         <td>{{ row['Cultiva'] }}</td>
-        <td>{{ row['Planting date'] }}</td>
-         <td>{{ row['Tillers'] }}</td>
-        <td>{{ row['Plants / 10m'] }}</td>
-         <td>{{ row['Row width'] }}</td>
-        <td>{{ row['Moist %'] }}</td>
-         <td>{{ row['Grain mass'] }}</td>
-        <td>{{ row['Ears'] }}</td>
+<div class="container mt-4">
+    <h2 class="text-center">Dashboard</h2>
+    
+    <!-- Responsive Form -->
+    <form method="post" class="p-3 bg-white shadow rounded">
+        <div class="mb-2">
+            <label class="form-label">Row width:</label>
+            <input type="text" name="Row width" class="form-control">
+        </div>
+        <div class="mb-2">
+            <label class="form-label">Moist %:</label>
+            <input type="text" name="Moist %" class="form-control">
+        </div>
+        <div class="mb-2">
+            <label class="form-label">Grain mass:</label>
+            <input type="text" name="Grain mass" class="form-control">
+        </div>
+        <div class="mb-2">
+            <label class="form-label">Ears:</label>
+            <input type="text" name="Ears" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Add Data</button>
+    </form>
 
-        <td>
-            <a href="{{ url_for('delete', record_id=row.id) }}">Delete</a>
-        </td>
-    </tr>
-    {% endfor %}
-    {% else %}
-    <tr>
-        <td colspan="4">No data available</td>
-    </tr>
-    {% endif %}
-        </tbody>
-    </table>
+    <!-- Responsive Table -->
+    <div class="table-responsive mt-4">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Point No</th>
+                    <th>Row Width</th>
+                    <th>Moist %</th>
+                    <th>Grain Mass</th>
+                    <th>Ears</th>
+                    <th><i class="bi bi-exclamation-triangle-fill text-danger"></i>Yield</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if data %}
+                    {% for row in data %}
+                    <tr>
+                        <td>{{ row['Point no'] }}</td>
+                        <td>{{ row['Row width'] }}</td>
+                        <td>{{ row['Moist %'] }}</td>
+                        <td>{{ row['Grain mass'] }}</td>
+                        <td>{{ row['Ears'] }}</td>
+                        <td>{{ row['yield'] }}</td>
+                        <td>
+                            <a href="{{ url_for('delete', record_id=row.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">No data available</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<!-- Bootstrap JS (for mobile responsiveness) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
