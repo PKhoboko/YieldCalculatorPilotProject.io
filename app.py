@@ -21,7 +21,6 @@ def logout():
     return redirect(url_for('login'))
 
 # Dashboard: CRUD operations
-@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     # if 'user' not in session:
     #     return redirect(url_for('login'))
@@ -29,7 +28,7 @@ def dashboard():
 
     # Retrieve data from Supabase Table
     data = supabase.table("kukuukk").select("*").execute().data
-    
+    data_list = []
     if request.method == 'POST':
         # Add record
         new_data = {
@@ -51,9 +50,14 @@ def dashboard():
         
         supabase.table("kukuukk").insert(new_data).execute()
         data = supabase.table("kukuukk").select("*").execute().data
+        for i in data:
+            data["yield"] = jsonify((i['Ears']*(i['Grain mass']*((100-i['Moist %'])/(100-12.5)/i['Row width'])))*0.95)
+       
         
         return render_template('dashboard.html',data=data)
-    
+    for i in data:
+            data["yeild"] = jsonify((i['Ears']*(i['Grain mass']*((100-i['Moist %'])/(100-12.5)/i['Row width'])))*0.95)
+            
     return render_template('dashboard.html',data=data)
 
 @app.route('/delete/<record_id>')
