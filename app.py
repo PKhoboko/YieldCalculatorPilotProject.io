@@ -57,12 +57,12 @@ def dashboard():
         # Take the first 3% of the data
         subset_data = data[:three_percent_rows]
         for i in subset_data:
-            value = value.replace(",", ".")
+            
             if isinstance(i['Ears'], (int, float)) and isinstance(i['Grain mass'].replace(",", "."), (int, float)) \
                and isinstance(i['Moist %'].replace(",", "."), (int, float)) and isinstance(i['Row width'].replace(",", "."), (int, float)):
-              data["yeild"] = jsonify((int(i['Ears'])*(float(i['Grain mass'])*((100-float(i['Moist %']))/(100-12.5)/float(i['Row width']))))*0.95)
+              i["yeild"] = jsonify((int(i['Ears'])*(float(i['Grain mass'])*((100-float(i['Moist %']))/(100-12.5)/float(i['Row width']))))*0.95)
             else:
-               data["yeild"] = 0
+               i["yeild"] = 0
        
         
         return render_template('dashboard.html',data=subset_data)
@@ -72,11 +72,12 @@ def dashboard():
         # Take the first 3% of the data
     subset_data = data[:three_percent_rows]
     for i in data:
-        if isinstance(i['Ears'], (int, float)) and isinstance(i['Grain mass'].replace(",", "."), (int, float)) \
-        and isinstance(i['Moist %'].replace(",", "."), (int, float)) and isinstance(i['Row width'].replace(",", "."), (int, float)):
-            data["yeild"] = jsonify((int(i['Ears'])*(float(i['Grain mass'])*((100-float(i['Moist %']))/(100-12.5)/float(i['Row width']))))*0.95)
+	ear = 
+        if isinstance(str(i['Ears'])), (int, float)) and isinstance(str(i['Grain mass']).replace(",", "."), (int, float)) \
+        and isinstance(str(i['Moist %']).replace(",", "."), (int, float)) and isinstance(str(i['Row width']).replace(",", "."), (int, float)):
+            i["yeild"] = jsonify((int(str(i['Ears']).replace(",", "."))*(float(str(i['Grain mass']).replace(",", "."))*((100-float(str(i['Moist %']).replace(",", ".")))/(100-12.5)/float(str(i['Row width']).replace(",", ".")))))*0.95)
         else:
-            data["yeild"] = 0
+            i["yeild"] = 0
             
     return render_template('dashboard.html',data=data)
 
