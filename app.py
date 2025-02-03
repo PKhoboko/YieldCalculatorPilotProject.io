@@ -21,6 +21,7 @@ def logout():
     return redirect(url_for('login'))
 
 # Dashboard: CRUD operations
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     # if 'user' not in session:
     #     return redirect(url_for('login'))
