@@ -77,7 +77,7 @@ def dashboard():
        #  else:
            #     i["yeild"] = 0
             
-    return render_template('dashboard.html',data=data)
+    return render_template('dashboard.html')
 
 @app.route('/delete/<record_id>')
 def delete(record_id):
