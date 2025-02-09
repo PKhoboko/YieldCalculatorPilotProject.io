@@ -19,7 +19,7 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 def logout():
     session.pop('user', None)
     return redirect(url_for('login'))
-
+data = []
 # Dashboard: CRUD operations
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
@@ -28,7 +28,7 @@ def dashboard():
     
 
     # Retrieve data from Supabase Table
-    data = supabase.table("kukuukk").select("*").execute().data
+  
     data_list = []
     if request.method == 'POST':
         # Add record
@@ -49,22 +49,25 @@ def dashboard():
 		"Tillers": 12
 	}
         
-        supabase.table("kukuukk").insert(new_data).execute()
-        data = supabase.table("kukuukk").select("*").execute().data
-        total_rows = len(data)  # Get total number of rows
-        three_percent_rows = int(total_rows * 0.03)  # Calculate 3% of the rows
+        response = supabase.table("kukuukk").insert(new_data, returning='representation').execute()
+        data = data.append(response.data)
+        #data = supabase.table("kukuukk").select("*").execute().data
+        #total_rows = len(inserted_data)  # Get total number of rows
+        #three_percent_rows = int(total_rows * 0.03)  # Calculate 3% of the rows
 
         # Take the first 3% of the data
-        subset_data = data[:-three_percent_rows]
-        for i in subset_data:
+        #subset_data = data[:-three_percent_rows]
+        for i in data:
            
             if isinstance(i['Ears'], (int, float)) and isinstance(str(i['Grain mass']).replace(",", "."), (int, float)) \
             and isinstance(str(i['Moist %']).replace(",", "."), (int, float)) and isinstance(str(i['Row width']).replace(",", "."), (int, float)):
                 i["yeild"] = (int(str(i['Ears']))*(float(str(i['Grain mass']))*((100-float(str(i['Moist %'])))/(100-12.5)/float(str(i['Row width'])))))*0.95
             else:
                 i["yeild"] = 0
+
+	    
         
-        return render_template('dashboard.html',data=subset_data)
+        return render_template('dashboard.html',data=data)
     total_rows = len(data)  # Get total number of rows
     three_percent_rows = int(total_rows * 0.03)  # Calculate 3% of the rows
 
