@@ -55,7 +55,7 @@ def dashboard():
         three_percent_rows = int(total_rows * 0.03)  # Calculate 3% of the rows
 
         # Take the first 3% of the data
-        subset_data = data[:three_percent_rows]
+        subset_data = data[:-three_percent_rows]
         for i in subset_data:
            
             if isinstance(i['Ears'], (int, float)) and isinstance(str(i['Grain mass']).replace(",", "."), (int, float)) \
@@ -69,13 +69,13 @@ def dashboard():
     three_percent_rows = int(total_rows * 0.03)  # Calculate 3% of the rows
 
         # Take the first 3% of the data
-    subset_data = data[:three_percent_rows]
-    for i in data:
-         if isinstance(i['Ears'], (int, float)) and isinstance(str(i['Grain mass']).replace(",", "."), (int, float)) \
-         and isinstance(str(i['Moist %']).replace(",", "."), (int, float)) and isinstance(str(i['Row width']).replace(",", "."), (int, float)):
+   # subset_data = data[:-three_percent_rows]
+    #for i in data:
+        # if isinstance(i['Ears'], (int, float)) and isinstance(str(i['Grain mass']).replace(",", "."), (int, float)) \
+        # and isinstance(str(i['Moist %']).replace(",", "."), (int, float)) and isinstance(str(i['Row width']).replace(",", "."), (int, float)):
                 i["yeild"] = (int(str(i['Ears']))*(float(str(i['Grain mass']).replace(",", ".")),0)*((100-float(str(i['Moist %']).replace(",", ".")))/(100-12.5)/float(str(i['Row width']).replace(",", "."))))*0.95
-         else:
-                i["yeild"] = 0
+       #  else:
+           #     i["yeild"] = 0
             
     return render_template('dashboard.html',data=data)
 
