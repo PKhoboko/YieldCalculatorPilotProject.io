@@ -33,20 +33,20 @@ def dashboard():
     if request.method == 'POST':
         # Add record
         new_data = {
-		"Crop": request.form['Crop'],
-		"Cultivar":request.form['Cultivar'],
+		"Crop": "Maize",
+		"Cultivar":"",
 		"Ears": request.form['Ears'],
 		"Grain mass": request.form['Grain mass'],
-		"I/D": request.form['I/D'],
-		"Lat(-)": request.form['Lat(-)'],
-		"Long (  )": request.form['Long (  )'],
+		"I/D": 20355,
+		"Lat(-)": -130,
+		"Long (  )": 130,
 		"Moist %": request.form['Moist %'],
-		"Planting date": request.form['Planting date'],
-		"Plants / 10m": request.form['Plants / 10m'],
-		"Point no": request.form['Point no'],
-		"Province": request.form['Province'],
+		"Planting date": 20250912,
+		"Plants / 10m": 20,
+		"Point no": 5068750,
+		"Province": "Eastern Cape",
 		"Row width": request.form['Row width'],
-		"Tillers": request.form['Tillers']
+		"Tillers": 12
 	}
         
         supabase.table("kukuukk").insert(new_data).execute()
@@ -60,7 +60,7 @@ def dashboard():
            
             if isinstance(i['Ears'], (int, float)) and isinstance(str(i['Grain mass']).replace(",", "."), (int, float)) \
             and isinstance(str(i['Moist %']).replace(",", "."), (int, float)) and isinstance(str(i['Row width']).replace(",", "."), (int, float)):
-                i["yeild"] = jsonify((int(str(i['Ears']))*(float(str(i['Grain mass']))*((100-float(str(i['Moist %'])))/(100-12.5)/float(str(i['Row width'])))))*0.95)
+                i["yeild"] = (int(str(i['Ears']))*(float(str(i['Grain mass']))*((100-float(str(i['Moist %'])))/(100-12.5)/float(str(i['Row width'])))))*0.95
             else:
                 i["yeild"] = 0
         
@@ -73,7 +73,7 @@ def dashboard():
     for i in data:
          if isinstance(i['Ears'], (int, float)) and isinstance(str(i['Grain mass']).replace(",", "."), (int, float)) \
          and isinstance(str(i['Moist %']).replace(",", "."), (int, float)) and isinstance(str(i['Row width']).replace(",", "."), (int, float)):
-                i["yeild"] = jsonify((int(str(i['Ears']))*(float(str(i['Grain mass']).replace(",", ".")),0)*((100-float(str(i['Moist %']).replace(",", ".")))/(100-12.5)/float(str(i['Row width']).replace(",", "."))))*0.95)
+                i["yeild"] = (int(str(i['Ears']))*(float(str(i['Grain mass']).replace(",", ".")),0)*((100-float(str(i['Moist %']).replace(",", ".")))/(100-12.5)/float(str(i['Row width']).replace(",", "."))))*0.95
          else:
                 i["yeild"] = 0
             
