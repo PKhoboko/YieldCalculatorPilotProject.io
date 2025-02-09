@@ -68,8 +68,8 @@ def dashboard():
 	    
         
         return render_template('dashboard.html',data=data)
-    total_rows = len(data)  # Get total number of rows
-    three_percent_rows = int(total_rows * 0.03)  # Calculate 3% of the rows
+    #total_rows = len(data)  # Get total number of rows
+    #three_percent_rows = int(total_rows * 0.03)  # Calculate 3% of the rows
 
         # Take the first 3% of the data
    # subset_data = data[:-three_percent_rows]
