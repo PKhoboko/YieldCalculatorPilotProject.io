@@ -59,12 +59,9 @@ def dashboard():
         #subset_data = data[:-three_percent_rows]
         for i in data:
            
-            if isinstance(i['Ears'], (int, float)) and isinstance(str(i['Grain mass']).replace(",", "."), (int, float)) \
-            and isinstance(str(i['Moist %']).replace(",", "."), (int, float)) and isinstance(str(i['Row width']).replace(",", "."), (int, float)):
-                i["yeild"] = (int(str(i['Ears']))*(float(str(i['Grain mass']))*((100-float(str(i['Moist %'])))/(100-12.5)/float(str(i['Row width'])))))*0.95
-            else:
-                i["yeild"] = 0
-
+           
+        	i["yeild"] = (int(i['Ears'])*(float(i['Grain mass'])*((100-float(i['Moist %']))/(100-12.5)/float(i['Row width']))))*0.95
+           
 	    
         
         return render_template('dashboard.html',data=data)
