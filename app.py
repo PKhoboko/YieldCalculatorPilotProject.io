@@ -50,7 +50,7 @@ def dashboard():
 	}
         
         response = supabase.table("kukuukk").insert(new_data, returning='representation').execute()
-        data = data.append(response.data)
+        data = response.data
         #data = supabase.table("kukuukk").select("*").execute().data
         #total_rows = len(inserted_data)  # Get total number of rows
         #three_percent_rows = int(total_rows * 0.03)  # Calculate 3% of the rows
