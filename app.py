@@ -12,8 +12,43 @@ app = Flask(__name__)
 # Replace with your Supabase credentials
 SUPABASE_URL = "https://eyhrkybcfmxmgxcpvbzk.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5aHJreWJjZm14bWd4Y3B2YnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE5NTc4OTIsImV4cCI6MjA0NzUzMzg5Mn0.ym_CfMBskcliZ-QTRCbS8knE29h_IJhrRwgQEVBpdgA"
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY, options={
+    'storage': FlaskSessionStorage(),
+    'flow_type': 'pkce'
+})
 # User Authentication Route
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        try:
+            user = supabase.auth.sign_up({
+                'email': email,
+                'password': password
+            })
+            flash('Registration successful! Please log in.', 'success')
+            return redirect(url_for('login'))
+        except Exception as e:
+            flash(f"An error occurred: {e}", 'danger')
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        try:
+            user = supabase.auth.sign_in_with_password({
+                'email': email,
+                'password': password
+            })
+            session['user'] = user
+            return redirect(url_for('dashboard'))
+        except Exception as e:
+            flash('Invalid email or password. Please try again.', 'danger')
+    return render_template('login.html')
 
 @app.route('/logout')
 def logout():
