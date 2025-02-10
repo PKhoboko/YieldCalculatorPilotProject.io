@@ -25,10 +25,8 @@ def register():
         email = request.form['email']
         password = request.form['password']
         try:
-            user = supabase.auth.sign_up({
-                'email': email,
-                'password': password
-            })
+            user = supabase.auth.sign_up(email=email,
+                password=password)
             flash('Registration successful! Please log in.', 'success')
             return redirect(url_for('login'))
         except Exception as e:
