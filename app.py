@@ -39,10 +39,10 @@ def login():
         email = request.form['email']
         password = request.form['password']
         try:
-            user = supabase.auth.sign_in_with_password({
-                'email': email,
-                'password': password
-            })
+            user = supabase.auth.sign_in_with_password(
+                email= email,
+                password =password
+            )
             session['user'] = user
             return redirect(url_for('dashboard'))
         except Exception as e:
