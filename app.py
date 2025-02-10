@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from supabase_config import supabase
 from supabase import create_client, Client
+from supabase.lib.client_options import ClientOptions
 from flask_storage import FlaskSessionStorage
 
 
@@ -13,10 +14,9 @@ app = Flask(__name__)
 # Replace with your Supabase credentials
 SUPABASE_URL = "https://eyhrkybcfmxmgxcpvbzk.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5aHJreWJjZm14bWd4Y3B2YnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE5NTc4OTIsImV4cCI6MjA0NzUzMzg5Mn0.ym_CfMBskcliZ-QTRCbS8knE29h_IJhrRwgQEVBpdgA"
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY, options={
-    'storage': FlaskSessionStorage(),
-    'flow_type': 'pkce'
-})
+
+options = ClientOptions()
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY, options=options)
 # User Authentication Route
 
 @app.route('/register', methods=['GET', 'POST'])
