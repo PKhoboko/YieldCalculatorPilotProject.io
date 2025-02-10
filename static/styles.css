@@ -26,6 +26,9 @@ input[type="password"] {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
-
+.logo {
+  width: 50%;
+  height: auto;
+}
 
 ::contentReference[oaicite:0]{index=0}
