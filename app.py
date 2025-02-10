@@ -3,14 +3,14 @@ from supabase_config import supabase
 from supabase import create_client, Client
 from supabase.lib.client_options import ClientOptions
 from flask_storage import FlaskSessionStorage
-
+import os
 
 
 
 
 
 app = Flask(__name__)
-
+app.secret_key = os.urandom(24) 
 # Replace with your Supabase credentials
 SUPABASE_URL = "https://eyhrkybcfmxmgxcpvbzk.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5aHJreWJjZm14bWd4Y3B2YnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE5NTc4OTIsImV4cCI6MjA0NzUzMzg5Mn0.ym_CfMBskcliZ-QTRCbS8knE29h_IJhrRwgQEVBpdgA"
