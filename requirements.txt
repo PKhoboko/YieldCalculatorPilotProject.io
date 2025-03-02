@@ -9,4 +9,4 @@ ipython==7.34.0
 supabase==0.7.1
 supafunc==0.2.2
 gunicorn
-
+flask-cors
