@@ -36,7 +36,7 @@
                 <tr>
                     <th>Log</th>
                     <th>Lat</th>
-                    <th>House Name</th>
+                    <th>Distance From You(km)</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,7 +45,7 @@
                     <tr>
                         <td>{{ row['lng'] }}</td>
                         <td>{{ row['lat] }}</td>
-                        <td>{{ row['name'] }}</td>
+                        <td>{{ row['distance'] }}</td>
                     {% endfor %}
                 {% else %}
                     <tr>
