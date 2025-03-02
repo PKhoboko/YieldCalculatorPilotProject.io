@@ -137,7 +137,7 @@ def haversine(lat1, lon1, lat2, lon2):
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
     return R * c
 
-@app.route('/nearest-houses', methods=['GET'])
+@app.route('/nearest-houses', methods=['GET', 'POST'])
 def get_nearest_houses():
     houses = [
     {"id": 1, "name": "House A", "lat": -33.9249, "lng": 18.4241},
@@ -146,23 +146,24 @@ def get_nearest_houses():
     {"id": 4, "name": "House D", "lat": -29.8587, "lng": 31.0218},
     {"id": 5, "name": "House E", "lat": -34.0000, "lng": 20.0000}
 ]
-    if request.args.get('lat') is not None and request.args.get('lng') is not None:
-        user_lat = float(str(request.args.get('lat')))
-        user_lng = float(str(request.args.get('lng')))
-        
-        houses_with_distance = [
-            {
-                "id": house["id"],
-                "name": house["name"],
-                "lat": house["lat"],
-                "lng": house["lng"],
-                "distance": haversine(user_lat, user_lng, house["lat"], house["lng"])
-            }
-            for house in houses
-        ]
-	haversine(user_lat, user_lng, house["lat"], house["lng"])
-        nearest_houses = sorted(houses_with_distance, key=lambda x: x["distance"])[:10]
-        return render_template('nearestfarm.html', data = nearest_houses )
+    if request.method == 'POST':
+        if request.args.get('lat') is not None and request.args.get('lng') is not None:
+            user_lat = float(str(request.args.get('lat')))
+            user_lng = float(str(request.args.get('lng')))
+            
+            houses_with_distance = [
+                {
+                    "id": house["id"],
+                    "name": house["name"],
+                    "lat": house["lat"],
+                    "lng": house["lng"],
+                    "distance": haversine(user_lat, user_lng, house["lat"], house["lng"])
+                }
+                for house in houses
+            ]
+            
+            nearest_houses = sorted(houses_with_distance, key=lambda x: x["distance"])[:10]
+            return render_template('nearestfarm.html', data = nearest_houses )
     else:
         return render_template('nearestfarm.html')
     
