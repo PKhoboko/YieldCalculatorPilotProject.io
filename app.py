@@ -148,8 +148,8 @@ def get_nearest_houses():
 ]
     if request.method == 'POST':
         if request.args.get('lat') is not None and request.args.get('lng') is not None:
-            user_lat = float(str(request.args.get('lat')))
-            user_lng = float(str(request.args.get('lng')))
+            user_lat = float(str(request.form['lat']))
+            user_lng = float(str(request.form['lng']))
             
             houses_with_distance = [
                 {
