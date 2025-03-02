@@ -70,30 +70,7 @@
                 alert("Geolocation is not supported by this browser.");
             }
         }
-function findHouses() {
-    const lat = document.getElementById("lat").value;
-    const lng = document.getElementById("lng").value;
 
-    if (!lat || !lng) {
-        alert("Please enter or fetch your coordinates!");
-        return;
-    }
-
-    // Replace with your Render API URL
-    const apiUrl = "https://yieldcalculatorpilotproject-io.onrender.com/nearest-houses";
-
-    fetch(`${apiUrl}?lat=${lat}&lng=${lng}`)
-    .then(response => response.json())
-    .then(data => {
-        const list = document.getElementById("houseList");
-        list.innerHTML = "";
-        data.forEach(house => {
-            const item = document.createElement("li");
-            item.textContent = `${house.name} - Distance: ${house.distance.toFixed(2)} km`;
-            list.appendChild(item);
-        });
-    })  .catch(error => console.error("Error fetching houses:", error));
-}
     </script>
              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
          </div>
