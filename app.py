@@ -140,7 +140,7 @@ def haversine(lat1, lon1, lat2, lon2):
 @app.route('/nearest-houses', methods=['GET'])
 def get_nearest_houses():
     
-    if request.args.get('lat') is not None or request.args.get('lng') is not None:
+    if request.args.get('lat') is not None and request.args.get('lng') is not None:
         user_lat = float(str(request.args.get('lat')))
         user_lng = float(str(request.args.get('lng')))
         
@@ -154,8 +154,9 @@ def get_nearest_houses():
             }
             for house in houses
         ]
+	haversine(user_lat, user_lng, house["lat"], house["lng"])
         nearest_houses = sorted(houses_with_distance, key=lambda x: x["distance"])[:10]
-        return render_template('nearestfarm.html', data = houses_with_distance )
+        return render_template('nearestfarm.html', data = nearest_houses )
     else:
         return render_template('nearestfarm.html')
     
