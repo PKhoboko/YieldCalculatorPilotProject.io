@@ -10,11 +10,12 @@
         .container {
             max-width: 500px; /* Limits form width on larger screens */
         }
-    <style/>
+    </style>
 </head>
-<body>
+<body class="bg-light">
+         <div class="container mt-4">
      <header>
-        <h1>Nearest Farm</h1>
+        <h2>Nearest Farm</h2>
     </header>
     
     <label for="lat">Latitude:</label>
@@ -28,7 +29,7 @@
 
     <h3>Results:</h3>
     <ul id="houseList"></ul>
-
+    
     <script>
 function findHouses() {
     const lat = document.getElementById("lat").value;
@@ -55,5 +56,6 @@ function findHouses() {
     })  .catch(error => console.error("Error fetching houses:", error));
 }
     </script>
+         </div>
 </body>
 </html>
