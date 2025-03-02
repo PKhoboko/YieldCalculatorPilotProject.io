@@ -155,7 +155,7 @@ def get_nearest_houses():
             for house in houses
         ]
         nearest_houses = sorted(houses_with_distance, key=lambda x: x["distance"])[:10]
-        return render_template('nearestfarm.html', data = nearest_houses)
+        return render_template('nearestfarm.html', data = houses_with_distance )
     else:
         return render_template('nearestfarm.html')
     
