@@ -153,9 +153,9 @@ def get_nearest_houses():
             for house in houses
         ]
         nearest_houses = sorted(houses_with_distance, key=lambda x: x["distance"])[:10]
-        return jsonify(nearest_houses)
+        return render_template('nearestfarm.html', data = nearest_houses)
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return render_template('nearestfarm.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)  # Render requires this
