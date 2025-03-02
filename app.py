@@ -2,7 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from supabase_config import supabase
 from supabase import create_client, Client
 from supabase.lib.client_options import ClientOptions
+from math import radians, sin, cos, sqrt, atan2
 from flask_storage import FlaskSessionStorage
+from flask_cors import CORS
 import os
 
 
@@ -11,6 +13,7 @@ import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24) 
+CORS(app)  # Allow frontend to communicate with backend
 # Replace with your Supabase credentials
 SUPABASE_URL = "https://eyhrkybcfmxmgxcpvbzk.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5aHJreWJjZm14bWd4Y3B2YnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE5NTc4OTIsImV4cCI6MjA0NzUzMzg5Mn0.ym_CfMBskcliZ-QTRCbS8knE29h_IJhrRwgQEVBpdgA"
@@ -118,6 +121,34 @@ def delete(record_id):
     supabase.table("kukuukk").delete().eq('Point no', record_id).execute()
     flash("Data Deleted", "info")
     return redirect(url_for('dashboard'))
+def haversine(lat1, lon1, lat2, lon2):
+    R = 6371
+    lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    return R * c
+
+@app.route('/nearest-houses', methods=['GET'])
+def get_nearest_houses():
+    try:
+        user_lat = float(request.args.get('lat'))
+        user_lng = float(request.args.get('lng'))
+        houses_with_distance = [
+            {
+                "id": house["id"],
+                "name": house["name"],
+                "lat": house["lat"],
+                "lng": house["lng"],
+                "distance": haversine(user_lat, user_lng, house["lat"], house["lng"])
+            }
+            for house in houses
+        ]
+        nearest_houses = sorted(houses_with_distance, key=lambda x: x["distance"])[:10]
+        return jsonify(nearest_houses)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=10000)  # Render requires this
