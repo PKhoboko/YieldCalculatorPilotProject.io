@@ -21,6 +21,13 @@ SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 options = ClientOptions()
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY, options=options)
 # User Authentication Route
+houses = [
+    {"id": 1, "name": "House A", "lat": -33.9249, "lng": 18.4241},
+    {"id": 2, "name": "House B", "lat": -26.2041, "lng": 28.0473},
+    {"id": 3, "name": "House C", "lat": -25.7479, "lng": 28.2293},
+    {"id": 4, "name": "House D", "lat": -29.8587, "lng": 31.0218},
+    {"id": 5, "name": "House E", "lat": -34.0000, "lng": 20.0000}
+]
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
