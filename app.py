@@ -140,8 +140,8 @@ def haversine(lat1, lon1, lat2, lon2):
 @app.route('/nearest-houses', methods=['GET'])
 def get_nearest_houses():
     try:
-        user_lat = float(request.args.get('lat'))
-        user_lng = float(request.args.get('lng'))
+        user_lat = float(str(request.args.get('lat')))
+        user_lng = float(str(request.args.get('lng')))
         houses_with_distance = [
             {
                 "id": house["id"],
