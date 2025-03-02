@@ -29,7 +29,9 @@
     <button onclick="findHouses()">Find Nearest Houses</button>
 
     <h3>Results:</h3>
-    <ul id="houseList"></ul>
+     {% if data %}
+                    {% for row in data %}
+             
     
     <script>
          function getLocation() {
