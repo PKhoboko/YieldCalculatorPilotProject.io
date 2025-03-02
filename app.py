@@ -139,7 +139,13 @@ def haversine(lat1, lon1, lat2, lon2):
 
 @app.route('/nearest-houses', methods=['GET'])
 def get_nearest_houses():
-    
+    houses = [
+    {"id": 1, "name": "House A", "lat": -33.9249, "lng": 18.4241},
+    {"id": 2, "name": "House B", "lat": -26.2041, "lng": 28.0473},
+    {"id": 3, "name": "House C", "lat": -25.7479, "lng": 28.2293},
+    {"id": 4, "name": "House D", "lat": -29.8587, "lng": 31.0218},
+    {"id": 5, "name": "House E", "lat": -34.0000, "lng": 20.0000}
+]
     if request.args.get('lat') is not None and request.args.get('lng') is not None:
         user_lat = float(str(request.args.get('lat')))
         user_lng = float(str(request.args.get('lng')))
