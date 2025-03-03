@@ -147,7 +147,7 @@ def get_nearest_houses():
     {"id": 5, "name": "House E", "lat": -34.0000, "lng": 20.0000}
 ]
     if request.method == 'POST':
-        if request.args.get('lat') is not None and request.args.get('lng') is not None:
+        if request.form['lat'] is not None and (request.form['lng'] is not None:
             user_lat = float(str(request.form['lat']))
             user_lng = float(str(request.form['lng']))
             
@@ -165,7 +165,7 @@ def get_nearest_houses():
             nearest_houses = sorted(houses_with_distance, key=lambda x: x["distance"])[:10]
             return render_template('nearestfarm.html', data = nearest_houses )
     else:
-        return render_template('nearestfarm.html')
+        return render_template('nearestfarm.html',data=[])
     
     
 
